@@ -80,7 +80,7 @@ jobs:
           mkdir -p ./artifact/
           mv openwrt/bin/targets/x86/64/* ./artifact/
           zip -r artifact.zip ./artifact/
-          release_tag="X86-64-Lean-$(date +%Y-%m-%d)"
+          release_tag="X86-64-Lean-$(date +%Y-%m-%d--%H-%M)"
           echo "##[set-output name=release_tag;]$release_tag"
 
     - name: Create Release

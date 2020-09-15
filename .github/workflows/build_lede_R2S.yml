@@ -8,7 +8,7 @@ on:
     branches: 
       - master
     paths:
-      - '.github/workflows/build_lede_R2S.yml_'
+      - '.github/workflows/build_lede_R2S.yml'
 #  schedule:
 #    - cron: 0 8 * * 5
 #  watch:
@@ -81,7 +81,7 @@ jobs:
 
     - name: zip files
       run: |
-        cd openwrt/bin/targets/x86/64
+        cd openwrt/bin/targets/rockchip/armv8
         rm -rf packages
 
     - name: Assemble Artifact
@@ -89,7 +89,7 @@ jobs:
       run: |
           rm -rf ./artifact/
           mkdir -p ./artifact/
-          mv openwrt/bin/targets/x86/64/* ./artifact/
+          mv openwrt/bin/targets/rockchip/armv8/* ./artifact/
           zip -r artifact.zip ./artifact/
           release_tag="R2S-Lean-$(date +%Y-%m-%d--%H-%M)"
           echo "##[set-output name=release_tag;]$release_tag"

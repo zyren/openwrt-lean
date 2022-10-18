@@ -1,4 +1,4 @@
-#  2022-10-18 20:50
+#  2022-10-19 07:05
 
 
 name: Build LEDE R2S
@@ -51,6 +51,14 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
+    
+    - name: Add luci-app-vssr
+      run: |
+        cd openwrt
+        git clone https://github.com/jerrykuku/lua-maxminddb.git  #git lua-maxminddb
+        git clone https://github.com/jerrykuku/luci-app-vssr.git
+        cd luci-app-vssr
+        git checkout v1.2.4
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -93,7 +101,7 @@ jobs:
           mkdir -p ./artifact/
           mv openwrt/bin/targets/rockchip/armv8/* ./artifact/
           zip -r artifact.zip ./artifact/
-          release_tag="R2S-Lean-$(date +%Y-%m-%d--%H-%M)"
+          release_tag="R2S-Lean-vssr-$(date +%Y-%m-%d--%H-%M)"
           echo "##[set-output name=release_tag;]$release_tag"
 
     - name: Create Release
